@@ -1,0 +1,25 @@
+const { PrismaClient } = require("@prisma/client");
+
+const prisma = new PrismaClient();
+
+exports.addresource = (req, res) => {
+ 
+  res.send('Resource added successfully');
+};
+
+async function addresource(req, res) {
+  try {
+    const type = await prisma.resourcetype.create({
+      data: {
+        Name: req.body.Name,
+        Description: req.body.Name    
+      }
+    });
+
+    res.json(type);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Resource Type Addition  failed" });
+  }
+}
+module.exports = addresource
